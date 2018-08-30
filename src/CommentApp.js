@@ -11,14 +11,31 @@ class CommentApp extends Component{
         }
     }
 
+    _saveComments(comments){
+        localStorage.setItem('comments',JSON.stringify(comments))
+   }
+
+   _loadComments(){
+        let comments = localStorage.getItem('comments')
+        if(comments){
+            comments = JSON.parse(comments)
+            this.setState({comments})
+        }
+   }
+
+
+    componentWillMount(){
+        this._loadComments()
+    }
+
     handleSubmitComment(comment){
         if(!comment) return
         if(!comment.username) return alert('Username is missed')
         if(!comment.content) return alert('Comment is empty')
-        this.state.comments.push(comment)
-        this.setState({
-            comments: this.state.comments
-        })
+        const comments = this.state.comments
+        comments.push(comment)
+        this.setState({comments})
+        this._saveComments(comments)
     }
 
     render(){
