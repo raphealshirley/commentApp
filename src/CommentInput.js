@@ -11,7 +11,8 @@ class CommentInput extends Component{
         super()
         this.state = {
             username:'',
-            content:''
+            content:'',
+            createdTime:''
         }
     }
 
@@ -52,8 +53,11 @@ class CommentInput extends Component{
 
     handleSubmit(){
         if(this.props.onSubmit){
-            const {username, content} = this.state
-            this.props.onSubmit({username,content})
+            this.props.onSubmit({
+                username:this.state.username,
+                content:this.state.content,
+                createdTime: +new Date()
+            })
         }
         this.setState({ content: '' })
     }
