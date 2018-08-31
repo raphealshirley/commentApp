@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CommentInput from './CommentInput'
 import CommentList from './CommentList'
 
+
 class CommentApp extends Component{
 
     constructor(){
@@ -9,6 +10,10 @@ class CommentApp extends Component{
         this.state = {
             comments: []
         }
+    }
+
+    componentWillMount(){
+        this._loadComments()
     }
 
     _saveComments(comments){
@@ -23,10 +28,13 @@ class CommentApp extends Component{
         }
    }
 
+   handleDeleteComment(index){
+    const comments = this.state.comments
+    comments.splice(index,1)
+    this.setState({comments})
+    this._saveComments(comments)
+}
 
-    componentWillMount(){
-        this._loadComments()
-    }
 
     handleSubmitComment(comment){
         if(!comment) return
@@ -42,7 +50,9 @@ class CommentApp extends Component{
         return(
             <div className = 'wrapper'>
                 <CommentInput onSubmit = {this.handleSubmitComment.bind(this)}/>
-                <CommentList comments = {this.state.comments}/>    
+                <CommentList 
+                    comments = {this.state.comments}
+                    onDeleteComment = {this.handleDeleteComment.bind(this)}/>    
             </div>
         )
     }
