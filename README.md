@@ -1,2 +1,2 @@
-# commentApp
-This is a simple comment app. 
+# Comment App
+This is a comment app accomplished by React, React-Redux. 
